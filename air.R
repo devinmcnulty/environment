@@ -8,7 +8,22 @@ library(purrr)
 library(tidyr)
 library(stringr)
 
+slim_df <-
+  df %>%
+  select(Country, Year, Value) %>%
+  group_by(Country, Year) %>%
+  summarise(Avg_Value = mean(Value))  %>%
+  filter(Country == "Denmark")
+  
 
-df %>%
-  ggplot(aes(x = Country, y = Value)) +
+
+
+slim_df %>%
+  ggplot(aes(x = Country, y = Avg_Value)) +
   geom_bar(stat="identity")
+
+
+slim_df %>%
+  ggplot(aes(x = Year, y = Avg_Value)) +
+  geom_line()
+
